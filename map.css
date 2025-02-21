@@ -1,16 +1,62 @@
 html, body {
     margin: 0;
-    padding: 5;
+    padding: 0;
     height: 100%;
     width: 100%;
     display: flex;
-    justify-content: center; /* Center horizontally */
-    align-items: center;     /* Center vertically */
+    flex-direction: column;
+    align-items: center;
   }
-     
+  
+  h1 {
+    text-align: center;
+    font-family: Arial, sans-serif;
+    margin: 20px 0;
+  }
+  
   #map {
-    width: 100%;    /* Adjust width to your desired size */
-    height: 100%;   /* Adjust height to your desired size */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: subtle shadow for effect */
-    border-radius: 8px; /* Optional: rounded corners */
+    width: 90%;
+    height: 600px;
+    max-width: 1200px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    position: relative;
   }
+  
+  /* SVG overlay */
+  #map svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; 
+    z-index: 10; /* Allows interaction with map underneath */
+  }
+  
+  /* Tooltip for station info */
+  .tooltip {
+    position: absolute;
+    visibility: hidden;
+    background: white;
+    border: 1px solid black;
+    padding: 8px;
+    border-radius: 5px;
+    font-size: 14px;
+    pointer-events: none;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 1000; /* Ensure tooltip is above all elements */
+  }
+  
+  
+  /* Station markers */
+  .station-layer circle {
+    transition: all 0.2s ease;
+  }
+  
+  .station-layer circle:hover {
+    fill: red;
+    r: 8;
+  }
+  
+  
