@@ -17,12 +17,30 @@
 </head>
 
 <body>
-  <h1>🚴🏼‍♀️ Bikewatching</h1>
-  
+  <header>
+    <h1>🚴🏼‍♀️ Bikewatching</h1>
+    
+    <!-- Time Filter -->
+    <!-- Time Filter -->
+<div class="time-slider-container">
+    <span>Filter by time:</span>
+    <input type="range" id="time-slider" min="0" max="1439" value="720">
+    <span id="selected-time">11:59 PM</span>
+    <span id="any-time" style="display: none;">Any Time</span> <!-- ✅ Add this -->
+</div>
+
+
   <!-- Map container with SVG overlay -->
   <div id="map">
     <svg></svg> <!-- This is needed for D3 station markers -->
   </div>
+
+  <div class="legend">
+    <div style="--departure-ratio: 1">More departures</div>
+    <div style="--departure-ratio: 0.5">Balanced</div>
+    <div style="--departure-ratio: 0">More arrivals</div>
+  </div>
+  
 
   <!-- Tooltip for displaying station info -->
   <div id="tooltip" class="tooltip"></div>
@@ -33,6 +51,7 @@
 
 </body>
 </html>
+
 
 
 

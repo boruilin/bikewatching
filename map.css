@@ -6,36 +6,56 @@ html, body {
     display: flex;
     flex-direction: column;
     align-items: center;
-  }
-  
-  h1 {
-    text-align: center;
     font-family: Arial, sans-serif;
-    margin: 20px 0;
-  }
-  
-  #map {
-    width: 90%;
-    height: 600px;
+}
+
+/* Header Styling */
+h1 {
+    text-align: left;
+    font-size: 24px;
+    font-weight: bold;
+    margin: 20px 0 10px 40px; /* Matches left-aligned title */
+}
+
+/* Map Container */
+#map {
+    width: 90vw; /* Ensures it scales properly */
+    height: 600px; /* Fixed height to match screenshot */
     max-width: 1200px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     position: relative;
-  }
-  
-  /* SVG overlay */
-  #map svg {
+}
+
+/* Time Slider Container */
+.time-slider-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; /* Aligns right */
+    width: 90vw;
+    max-width: 1200px;
+    margin-bottom: 10px;
+    gap: 10px;
+}
+
+#time-slider {
+    width: 300px; /* Matches screenshot */
+    accent-color: blue; /* Ensure the slider matches */
+}
+
+/* SVG overlay */
+#map svg {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    pointer-events: none; 
-    z-index: 10; /* Allows interaction with map underneath */
-  }
-  
-  /* Tooltip for station info */
-  .tooltip {
+    z-index: 2; /* Allow interaction */
+    pointer-events: none;
+}
+
+/* Tooltip for station info */
+.tooltip {
     position: absolute;
     visibility: hidden;
     background: white;
@@ -45,18 +65,86 @@ html, body {
     font-size: 14px;
     pointer-events: none;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    z-index: 1000; /* Ensure tooltip is above all elements */
-  }
-  
-  
-  /* Station markers */
-  .station-layer circle {
-    transition: all 0.2s ease;
-  }
-  
-  .station-layer circle:hover {
+    z-index: 1000;
+}
+
+/* ✅ Circle Color for Traffic Flow */
+:root {
+    --color-departures: steelblue;
+    --color-arrivals: darkorange;
+}
+
+circle {
+    fill: var(--color);
+    --color: color-mix(
+        in oklch,
+        var(--color-departures) calc(100% * var(--departure-ratio)),
+        var(--color-arrivals)
+    );
+    fill-opacity: 0.6;
+    stroke: white;
+    stroke-width: 1;
+    pointer-events: auto; /* Enable tooltips */
+}
+
+circle:hover {
     fill: red;
-    r: 8;
-  }
-  
-  
+}
+
+/* ✅ Legend Styling */
+/* Define departure/arrival colors */
+:root {
+    --color-departures: steelblue;
+    --color-arrivals: darkorange;
+}
+
+/* Legend container */
+.legend {
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* Space between legend items */
+    margin-top: 10px;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* Style each legend item */
+.legend div {
+    display: flex;
+    align-items: center;
+    gap: 5px; /* Space between color box and text */
+}
+
+/* Add colored squares to legend */
+.legend div::before {
+    content: "";
+    width: 15px;
+    height: 15px;
+    border-radius: 3px;
+    display: inline-block;
+    background: color-mix(
+        in oklch,
+        var(--color-departures) calc(100% * var(--departure-ratio)),
+        var(--color-arrivals)
+    );
+
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    #map {
+        width: 95vw;
+        height: 500px; /* Slightly reduce height */
+    }
+
+    .time-slider-container {
+        justify-content: center; /* Center slider on mobile */
+        flex-direction: column;
+    }
+
+    .legend {
+        flex-direction: column;
+        align-items: center;
+    }
+}
